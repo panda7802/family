@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-from love.models import ZF
+from love.models import ZF, GrowingUp
 
 
 class UnderwriterZF(admin.ModelAdmin):
@@ -15,3 +15,13 @@ class UnderwriterZF(admin.ModelAdmin):
 
 
 admin.site.register(ZF, UnderwriterZF)
+
+
+class UnderwriterGrowingUp(admin.ModelAdmin):
+    # 需要显示的字段信息
+    list_display = ('id', 'name', 'take_time', 'desc')
+    # 设置哪些字段可以点击进入编辑界面，默认是第一个字段
+    list_display_links = ('id', 'name', 'take_time', 'desc')
+
+
+admin.site.register(GrowingUp, UnderwriterGrowingUp)

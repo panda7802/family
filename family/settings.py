@@ -61,7 +61,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'love.apps.LoveConfig'
+    'love.apps.LoveConfig',
+    'easy_thumbnails',
+    'filer',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +154,61 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = (
     os.path.join(os.path.join(BASE_DIR, 'static')),
 )
+
+# 支持视网膜高分辨率设备
+THUMBNAIL_HIGH_RESOLUTION = True
+
+# 处理缩列图
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)
+
+project_path = '.'
+
+# 存放图片文件夹设置
+FILER_STORAGES = {
+    'public': {
+        'main': {
+            'ENGINE': 'filer.storage.PublicFileSystemStorage',
+            'OPTIONS': {
+                'location': '%s/media/filer' % project_path,
+                'base_url': '/media/filer/',
+            },
+            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
+            'UPLOAD_TO_PREFIX': 'filer_public',
+        },
+        'thumbnails': {
+            'ENGINE': 'filer.storage.PublicFileSystemStorage',
+            'OPTIONS': {
+                'location': '%s/media/filer_thumbnails' % project_path,
+                'base_url': '/media/filer_thumbnails/',
+            },
+        },
+    },
+    'private': {
+        'main': {
+            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+            'OPTIONS': {
+                'location': '%s/smedia/filer' % project_path,
+                'base_url': '/smedia/filer/',
+            },
+            'UPLOAD_TO': 'filer.utils.generate_filename.randomized',
+            'UPLOAD_TO_PREFIX': 'filer_public',
+        },
+        'thumbnails': {
+            'ENGINE': 'filer.storage.PrivateFileSystemStorage',
+            'OPTIONS': {
+                'location': '%s/smedia/filer_thumbnails' % project_path,
+                'base_url': '/smedia/filer_thumbnails/',
+            },
+        },
+    },
+}
+
+# 指定 MEDIA_URL 的位置
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '%s/media/' % project_path
+PIC_ROOT = '%s/static/media/' % project_path

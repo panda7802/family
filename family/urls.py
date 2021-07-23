@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls.static import static
+from django.urls import include
 
 from family import settings
 from love.views import *
-from django.views.static import serve
 
 urlpatterns = [
     url(r'admin/', admin.site.urls),
@@ -28,4 +28,8 @@ urlpatterns = [
     url(r'^love/', love_index),
     url(r'^marry/', marry),
     url(r'^loveaction/(.*)$', love_action),
+    url(r'^growing_up/', growing_up),
+    url(r'^files/', include('filer.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

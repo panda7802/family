@@ -10,7 +10,7 @@ from django.http import HttpResponse
 # Create your views here.
 from django.template.loader import get_template
 
-from love.models import ZF
+from love.models import ZF, GrowingUp
 from tutils import t_url_tools
 
 reload(sys)
@@ -106,3 +106,14 @@ def love_action(request, action):
         s = s.encode('utf-16', 'surrogatepass').decode('utf-16')
         logging.debug(s)
         return HttpResponse(s)
+
+
+def growing_up(request):
+    # t = get_template('growing_up/show_pic/index.html')
+    # s = t.render()
+    # return HttpResponse(s)
+    t = get_template('growing_up/show_pic/birth.html')
+    growing_ups = GrowingUp.objects.all()
+    show_data = {'growing_ups': growing_ups, 'len': growing_ups.__len__(), 'pic': growing_ups.first()}
+    s = t.render(show_data)
+    return HttpResponse(s)
