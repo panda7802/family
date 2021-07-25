@@ -6,6 +6,7 @@ import sys
 import traceback
 from imp import reload
 
+from django.db import connection
 from django.http import HttpResponse
 # Create your views here.
 from django.template.loader import get_template
@@ -112,8 +113,19 @@ def growing_up(request):
     # t = get_template('growing_up/show_pic/index.html')
     # s = t.render()
     # return HttpResponse(s)
-    t = get_template('growing_up/show_pic/birth.html')
-    growing_ups = GrowingUp.objects.all()
-    show_data = {'growing_ups': growing_ups, 'len': growing_ups.__len__(), 'pic': growing_ups.first()}
+    # t = get_template('growing_up/show_pic/birth.html')
+    sql = "select name from easy_thumbnails_thumbnail where name like '%180x180%2x%' order by random() limit 16"
+    # sql = "select name from easy_thumbnails_thumbnail where name like '%180x180%2x%'  order by id limit 30"
+    show_data = {}
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    for index, item in enumerate(cursor.fetchall()):
+        logging.debug("%d : %s" % (index, str(item)))
+        show_data['pic_%d' % (index + 1)] = r"../media/filer_thumbnails/%s" % str(item[0]).replace("\\","/")
+    cursor.close()
+    t = get_template('growing_up/photo_wall/index.html')
+    # growing_ups = GrowingUp.objects.all()
+    # show_data = {'growing_ups': growing_ups, 'len': growing_ups.__len__(), 'pic': growing_ups.first()}
+    print(show_data)
     s = t.render(show_data)
     return HttpResponse(s)

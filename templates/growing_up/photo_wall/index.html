@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>小熊猫</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/static/growing_up/photo_wall/css/style.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="/static/growing_up/photo_wall/js/jquery1.4.3.min.js"></script>
+    <script src="/static/growing_up/photo_wall/js/jquery.transform-0.9.1.min.js"></script>
+    <script src="/static/js/wx_funcs.js"></script>
+    <style type="text/css">
+        .description {
+            position: fixed;
+            right: 10px;
+            top: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        span.reference {
+            position: fixed;
+            left: 10px;
+            bottom: 10px;
+            font-size: 12px;
+        }
+
+        span.reference a {
+            color: #888;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding-right: 20px;
+        }
+
+        span.reference a:hover {
+            color: #444;
+        }
+
+        .topcorner {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+<audio autoplay="autoplay" loop="loop" preload="auto" src="/static/sound/dtezxtbb.mp3"></audio>
+{#刷新#}
+<div class="topcorner" onclick="location.reload()">
+    <img src='/static/growing_up/photo_wall/images/flush.png'
+         style="width: 50px;height: 50px;margin-right: 10px;margin-top: 10px" alt=""/>
+</div>
+
+<div id="im_wrapper" class="im_wrapper">
+    <div style="background-position:0px 0px;"><img src='{{ pic_1 }}' alt=""/></div>
+    <div style="background-position:-125px 0px;"><img src='{{ pic_2 }}' alt=""/></div>
+    <div style="background-position:-250px 0px;"><img src='{{ pic_3 }}' alt=""/></div>
+    <div style="background-position:-375px 0px;"><img src='{{ pic_4 }}' alt=""/></div>
+
+    <div style="background-position:0px -125px;"><img src='{{ pic_5 }}' alt=""/></div>
+    <div style="background-position:-125px -125px;"><img src='{{ pic_6 }}' alt=""/></div>
+    <div style="background-position:-250px -125px;"><img src='{{ pic_7 }}' alt=""/></div>
+    <div style="background-position:-375px -125px;"><img src='{{ pic_8 }}' alt=""/></div>
+
+    <div style="background-position:0px -250px;"><img src='{{ pic_9 }}' alt=""/></div>
+    <div style="background-position:-125px -250px;"><img src='{{ pic_10 }}' alt=""/></div>
+    <div style="background-position:-250px -250px;"><img src='{{ pic_11 }}' alt=""/></div>
+    <div style="background-position:-375px -250px;"><img src='{{ pic_12 }}' alt=""/></div>
+
+    <div style="background-position:0px -375px;"><img src='{{ pic_13 }}' alt=""/></div>
+    <div style="background-position:-125px -375px;"><img src='{{ pic_14 }}' alt=""/></div>
+    <div style="background-position:-250px -375px;"><img src='{{ pic_15 }}' alt=""/></div>
+    <div style="background-position:-375px -375px;"><img src='{{ pic_16 }}' alt=""/></div>
+
+</div>
+<div id="im_loading" class="im_loading"></div>
+<div id="im_next" class="im_next"></div>
+<div id="im_prev" class="im_prev"></div>
+<script src="/static/growing_up/photo_wall/js/logic.js"></script>
+<script type="text/javascript">
+    marry_init();
+    wx_share_pic = "https://www.pandafly.cn/static/img/love/panda.jpeg";
+    wx_share_link = window.location.href;
+</script>
+</body>
+</html>
